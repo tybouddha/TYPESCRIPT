@@ -1,73 +1,42 @@
-import { useRef, useState } from "react";
-import styled from "styled-components";
-import { theme } from "../../../theme";
-import Main from "./Main/Main";
-import Navbar from "./Navbar/Navbar";
-import OrderContext from "../../../context/OrderContext";
-import { fakeMenu } from "../../../fakeData/fakeMenu";
-import { EMPTY_PRODUCT } from "../../../enums/product";
-import { deepClone } from "../../../utils/array";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react"
+import styled from "styled-components"
+import { theme } from "../../../theme"
+import Main from "./Main/Main"
+import Navbar from "./Navbar/Navbar"
+import OrderContext from "../../../context/OrderContext"
+import { EMPTY_PRODUCT } from "../../../enums/product"
+import { useMenu } from "../../../hooks/useMenu"
+import { useBasket } from "../../../hooks/useBasket"
+import { findObjectById } from "../../../utils/array"
+import { useParams } from "react-router-dom"
+import { initialiseUserSession } from "./helpers/initialiseUserSession"
 
 export default function OrderPage() {
   // state
-  const [isModeAdmin, setIsModeAdmin] = useState(true);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [currentTabSelected, setCurrentTabSelected] = useState("edit");
-  const [menu, setMenu] = useState(fakeMenu.MEDIUM);
-  const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
-  const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT);
-  const titleEditRef = useRef();
+  const [isModeAdmin, setIsModeAdmin] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [currentTabSelected, setCurrentTabSelected] = useState("add")
+  const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
+  const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT)
+  const titleEditRef = useRef()
+  const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
+  const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
+  const { username } = useParams()
 
-  // comportements (gestionnaire de state ou "state handlers")
-  const handleAdd = (newProduct) => {
-    // 1. copie du tableau
-    const menuCopy = deepClone(menu);
-
-    // 2. manip de la copie du tableau
-    const menuUpdated = [newProduct, ...menuCopy];
-
-    // 3. update du state
-    setMenu(menuUpdated);
-  };
-
-  const handleDelete = (idOfProductToDelete) => {
-    //1. copy du state
-    const menuCopy = deepClone(menu);
-
-    //2. manip de la copie state
-    const menuUpdated = menuCopy.filter(
-      (product) => product.id !== idOfProductToDelete
-    );
-    console.log("menuUpdated: ", menuUpdated);
-
-    //3. update du state
-    setMenu(menuUpdated);
-  };
-
-  const handleEdit = (productBeingEdited) => {
-    // 1. copie du state (deep clone)
-    const menuCopy = deepClone(menu);
-
-    // 2. manip de la copie du state
-    const indexOfProductToEdit = menu.findIndex(
-      (menuProduct) => menuProduct.id === productBeingEdited.id
-    );
-    menuCopy[indexOfProductToEdit] = productBeingEdited;
-
-    // 3. update du state
-    setMenu(menuCopy);
-  };
-
-  const resetMenu = () => {
-    setMenu(fakeMenu.MEDIUM);
-  };
+  const handleProductSelected = async (idProductClicked) => {
+    const productClickedOn = findObjectById(idProductClicked, menu)
+    await setIsCollapsed(false)
+    await setCurrentTabSelected("edit")
+    await setProductSelected(productClickedOn)
+    titleEditRef.current.focus()
+  }
 
   useEffect(() => {
-    console.log("componentDidMount");
-  }, []);
+    initialiseUserSession(username, setMenu, setBasket)
+  }, [])
 
   const orderContextValue = {
+    username,
     isModeAdmin,
     setIsModeAdmin,
     isCollapsed,
@@ -84,9 +53,13 @@ export default function OrderPage() {
     setProductSelected,
     handleEdit,
     titleEditRef,
-  };
+    basket,
+    handleAddToBasket,
+    handleDeleteBasketProduct,
+    handleProductSelected,
+  }
 
-  //affichage
+  //affichage (render)
   return (
     <OrderContext.Provider value={orderContextValue}>
       <OrderPageStyled>
@@ -96,7 +69,7 @@ export default function OrderPage() {
         </div>
       </OrderPageStyled>
     </OrderContext.Provider>
-  );
+  )
 }
 
 const OrderPageStyled = styled.div`
@@ -114,4 +87,4 @@ const OrderPageStyled = styled.div`
     flex-direction: column;
     border-radius: ${theme.borderRadius.extraRound};
   }
-`;
+`
