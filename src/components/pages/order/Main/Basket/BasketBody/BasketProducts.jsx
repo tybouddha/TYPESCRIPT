@@ -1,7 +1,10 @@
 import React from "react"
 import { useContext } from "react"
-import styled from "styled-components/macro"
-import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../enums/product"
+import styled from "styled-components"
+import {
+  BASKET_MESSAGE,
+  IMAGE_COMING_SOON,
+} from "../../../../../../enums/product"
 import BasketCard from "./BasketCard"
 import OrderContext from "../../../../../../context/OrderContext"
 import { findObjectById } from "../../../../../../utils/array"
@@ -29,7 +32,10 @@ export default function BasketProducts() {
   }
 
   return (
-    <TransitionGroup component={BasketProductsStyled} className={"transition-group"}>
+    <TransitionGroup
+      component={BasketProductsStyled}
+      className={"transition-group"}
+    >
       {basket.map((basketProduct) => {
         const menuProduct = findObjectById(basketProduct.id, menu)
         return (
@@ -45,12 +51,23 @@ export default function BasketProducts() {
               )}
               <BasketCard
                 {...menuProduct}
-                imageSource={menuProduct.imageSource ? menuProduct.imageSource : IMAGE_COMING_SOON}
+                imageSource={
+                  menuProduct.imageSource
+                    ? menuProduct.imageSource
+                    : IMAGE_COMING_SOON
+                }
                 quantity={basketProduct.quantity}
                 onDelete={(event) => handleOnDelete(event, basketProduct.id)}
                 isClickable={isModeAdmin}
-                onClick={isModeAdmin ? () => handleProductSelected(basketProduct.id) : null}
-                isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
+                onClick={
+                  isModeAdmin
+                    ? () => handleProductSelected(basketProduct.id)
+                    : null
+                }
+                isSelected={checkIfProductIsClicked(
+                  basketProduct.id,
+                  productSelected.id
+                )}
                 className={"card"}
                 price={
                   convertStringToBoolean(menuProduct.isAvailable)
