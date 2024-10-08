@@ -3,6 +3,7 @@ import styled, { css } from "styled-components"
 import { MdDeleteForever } from "react-icons/md"
 import { theme } from "../../../../../../theme"
 import CasinoEffect from "../../../../../reusable-ui/CasinoEffect"
+import Sticker from "../../../../../reusable-ui/Sticker"
 
 export default function BasketCard({
   title,
@@ -14,19 +15,16 @@ export default function BasketCard({
   onClick,
   onDelete,
   isSelected,
+  isPublicised,
 }) {
   return (
-    <BasketCardStyled
-      className={className}
-      isClickable={isClickable}
-      onClick={onClick}
-      isSelected={isSelected}
-    >
+    <BasketCardStyled className={className} isClickable={isClickable} onClick={onClick} isSelected={isSelected}>
       <div className="delete-button" onClick={onDelete}>
         <MdDeleteForever className="icon" />
       </div>
       <div className="image">
         <img src={imageSource} alt={title} />
+        {isPublicised && <Sticker className="badge-new" />}
       </div>
       <div className="text-info">
         <div className="left-info">
