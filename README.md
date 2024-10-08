@@ -39,5 +39,5 @@ P.S. Sans ça, tu ne pourras pas accéder à la page de commande avec les bonnes
 ## 3. Pour lancer le projet
 
 ```
-yarn start
+yarn dev
 ```
