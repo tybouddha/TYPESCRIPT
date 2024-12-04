@@ -1,8 +1,13 @@
-import React from "react"
+// import React from "react"
 import styled from "styled-components"
 import { theme } from "../../theme"
 
-export default function Header({ children }) {
+// 1e méthode : la méthode classique
+type HeaderProps = {
+  children: React.ReactNode
+}
+
+export default function Header({ children }: HeaderProps) {
   return <HeaderStyled>{children}</HeaderStyled>
 }
 
