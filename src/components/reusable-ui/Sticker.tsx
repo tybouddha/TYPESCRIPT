@@ -5,7 +5,7 @@ import { theme } from "../../theme/theme"
 // 2. typage de propriété
 
 type StickerProps = {
-  label: string
+  label?: string
   className?: string
 }
 
