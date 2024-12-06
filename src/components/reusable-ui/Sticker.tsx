@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { theme } from "../../theme/theme"
+import { theme } from "@/theme/theme"
 
 // 1. paramètre par défaut
 // 2. typage de propriété
