@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../enums/product"
+import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../constants/product"
 import BasketCard from "./BasketCard"
 import { useOrderContext } from "../../../../../../context/OrderContext"
 import { findObjectById } from "../../../../../../utils/array"
