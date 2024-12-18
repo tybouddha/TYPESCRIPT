@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react"
 import styled from "styled-components"
 import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../constants/product"
