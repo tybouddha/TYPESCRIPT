@@ -30,7 +30,7 @@ export default function BasketCard({
   isPublicised,
 }: BasketCardProps) {
   return (
-    <BasketCardStyled className={className} isClickable={isClickable} onClick={onClick} isSelected={isSelected}>
+    <BasketCardStyled className={className} $isClickable={isClickable} onClick={onClick} $isSelected={isSelected}>
       <div className="delete-button" onClick={onDelete}>
         <MdDeleteForever className="icon" />
       </div>
@@ -54,12 +54,12 @@ export default function BasketCard({
 }
 
 type BasketCardStyledProps = {
-  isClickable?: boolean,
-  isSelected?: boolean
+  $isClickable?: boolean,
+  $isSelected?: boolean
 }
 
 const BasketCardStyled = styled.div<BasketCardStyledProps>`
-  cursor: ${({ isClickable }) => (isClickable ? "pointer" : "auto")};
+  cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "auto")};
   /* border: 1px solid red; */
   box-sizing: border-box;
   height: 86px;
@@ -187,7 +187,7 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
     }
   }
 
-  ${({ isClickable, isSelected }) => isClickable && isSelected && selectedStyled}
+  ${({ $isClickable, $isSelected }) => $isClickable && $isSelected && selectedStyled}
 `
 
 const selectedStyled = css`
