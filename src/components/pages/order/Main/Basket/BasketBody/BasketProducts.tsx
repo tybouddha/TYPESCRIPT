@@ -1,16 +1,13 @@
-//@ts-nocheck
-import React from "react"
 import styled from "styled-components"
-import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../constants/product"
+import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "@/constants/product"
 import BasketCard from "./BasketCard"
-import { useOrderContext } from "../../../../../../context/OrderContext"
-import { findObjectById } from "../../../../../../utils/array"
+import { useOrderContext } from "@/context/OrderContext"
+import { findObjectById } from "@/utils/array"
 import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
-import { basketAnimation } from "../../../../../../theme/animations"
-import { formatPrice } from "../../../../../../utils/maths"
-import { convertStringToBoolean } from "../../../../../../utils/string"
-import Sticker from "../../../../../reusable-ui/Sticker"
+import { basketAnimation } from "@/theme/animations"
+import { formatPrice } from "@/utils/maths"
+import { convertStringToBoolean } from "@/utils/string"
 import { useParams } from "react-router-dom"
 
 export default function BasketProducts() {
