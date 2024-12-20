@@ -9,6 +9,7 @@ import { basketAnimation } from "@/theme/animations"
 import { formatPrice } from "@/utils/maths"
 import { convertStringToBoolean } from "@/utils/string"
 import { useParams } from "react-router-dom"
+import { MenuProduct } from "@/types/Product"
 
 export default function BasketProducts() {
   const {
@@ -22,15 +23,28 @@ export default function BasketProducts() {
 
   const { username } = useParams()
 
-  const handleOnDelete = (event, id) => {
+  const handleOnDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     event.stopPropagation()
-    handleDeleteBasketProduct(id, username)
+    username && handleDeleteBasketProduct(id, username)
+  }
+
+  const handleCardClick = (isModeAdmin: boolean, basketProductId: string) => {
+    isModeAdmin && handleProductSelected(basketProductId)
+  }
+
+  const getPrice = (menuProduct: MenuProduct) => {
+    return convertStringToBoolean(menuProduct.isAvailable)
+      ? formatPrice(menuProduct.price)
+      : BASKET_MESSAGE.NOT_AVAILABLE
   }
 
   return (
+    // @ts-expect-error
     <TransitionGroup component={BasketProductsStyled} className={"transition-group"}>
       {basket.map((basketProduct) => {
+        if (menu === undefined) return
         const menuProduct = findObjectById(basketProduct.id, menu)
+        if (!menuProduct) return
         return (
           <CSSTransition
             appear={true}
@@ -45,14 +59,10 @@ export default function BasketProducts() {
                 quantity={basketProduct.quantity}
                 onDelete={(event) => handleOnDelete(event, basketProduct.id)}
                 isClickable={isModeAdmin}
-                onClick={isModeAdmin ? () => handleProductSelected(basketProduct.id) : null}
+                onClick={() => handleCardClick(isModeAdmin, basketProduct.id)}
                 isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
                 className={"card"}
-                price={
-                  convertStringToBoolean(menuProduct.isAvailable)
-                    ? formatPrice(menuProduct.price)
-                    : BASKET_MESSAGE.NOT_AVAILABLE
-                }
+                price={getPrice(menuProduct)}
                 isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
               />
             </div>
