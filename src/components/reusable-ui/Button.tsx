@@ -6,17 +6,31 @@ import { Loader } from "./Loader"
 type ButtonVersion = "normal" | "success"
 
 type ButtonProps = {
-  label: string,
-  Icon?: JSX.Element,
-  version?: ButtonVersion,
+  label: string
+  Icon?: JSX.Element
+  version?: ButtonVersion
+  isLoading?: boolean
 } & ComponentProps<"button">
 
-export default function Button({ label, Icon, className, version = "normal", onClick, disabled }: ButtonProps) {
+export default function Button({
+  isLoading,
+  label,
+  Icon,
+  className,
+  version = "normal",
+  onClick,
+  disabled,
+}: ButtonProps) {
   return (
     <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
-      <span>{label}</span>
-      <div className="icon">{Icon && Icon}</div>
-      <Loader />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <span>{label}</span>
+          <div className="icon">{Icon && Icon}</div>
+        </>
+      )}
     </ButtonStyled>
   )
 }
