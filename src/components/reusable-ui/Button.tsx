@@ -19,10 +19,9 @@ export default function Button({
   className,
   version = "normal",
   onClick,
-  disabled,
 }: ButtonProps) {
   return (
-    <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
+    <ButtonStyled className={className} version={version} onClick={onClick} disabled={isLoading}>
       {isLoading ? (
         <Loader />
       ) : (
@@ -73,7 +72,7 @@ const extraStyleNormal = css`
   }
 
   &:disabled {
-    opacity: 50%;
+    opacity: 100%;
     cursor: not-allowed;
     z-index: 2;
   }
