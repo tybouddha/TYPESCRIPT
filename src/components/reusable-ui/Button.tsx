@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 import { theme } from "../../theme/theme"
 import { ComponentProps } from "react"
+import { Loader } from "./Loader"
 
 type ButtonVersion = "normal" | "success"
 
@@ -15,6 +16,7 @@ export default function Button({ label, Icon, className, version = "normal", onC
     <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
       <span>{label}</span>
       <div className="icon">{Icon && Icon}</div>
+      <Loader />
     </ButtonStyled>
   )
 }
