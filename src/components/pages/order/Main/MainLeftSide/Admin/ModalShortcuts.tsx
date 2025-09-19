@@ -9,13 +9,18 @@ type ModalShortcutsProps = {
 export const ModalShortcuts = ({ onClick }: ModalShortcutsProps) => {
   const raccourci = isMac() ? "⌘" : "CTRL"
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation()
+    onClick && onClick(event)
+  }
+
   return (
     <ModalShortcutStyled>
       <span className="title">💡 Pour aller plus vite :</span>
       <span className="shortcut-message i">{`${raccourci} + i : Toggle "mode" admin`}</span>
       <span className="shortcut-message j">{`${raccourci} + j : Toggle "panel" admin`}</span>
-      <button onClick={onClick}>
-        X <span className="shortcut-message j" >Ne plus rappeler</span>
+      <button onClick={handleClick}>
+        <span className="shortcut-message j" >Ne plus rappeler</span>
       </button>
     </ModalShortcutStyled>
   )
@@ -24,7 +29,7 @@ export const ModalShortcuts = ({ onClick }: ModalShortcutsProps) => {
 const ModalShortcutStyled = styled.div`
     border-radius: ${theme.borderRadius.round};
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     top: 30px;
     left: 30px;
     display: flex;
@@ -34,7 +39,6 @@ const ModalShortcutStyled = styled.div`
     background-color: ${theme.colors.dark};
     color: ${theme.colors.white};
     transition: ease-in 100ms;
-    /* opacity: ${({ isShortcutModalVisible }) => (isShortcutModalVisible ? "100%" : "0%")}; */
     gap: 15px;
 
     .title {
@@ -45,6 +49,27 @@ const ModalShortcutStyled = styled.div`
   .shortcut-message {
     font-size: ${theme.fonts.size.SM};
   }
+
+  button {
+    padding: 13px 58px;
+    /* border-radius: ${theme.borderRadius.circle}; */
+    border-radius: 25px;
+    cursor: pointer;
+    color: ${theme.colors.white};
+    border: 1px solid ${theme.colors.white};
+    background-color: transparent;
+
+    :hover{
+      color: ${theme.colors.primary};
+    border: 1px solid ${theme.colors.primary};
+    }
+
+    :active {
+      opacity: 50%;
+    }
+  }
+
+
 
   .i {
     /* margin-bottom: 20px; */
