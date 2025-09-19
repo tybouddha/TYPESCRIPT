@@ -13,7 +13,7 @@ import { useCreateKeyboardShortcut } from "@/hooks/useCreateKeyboardShortcut"
 export default function OrderPage() {
   // state
   const { username } = useParams()
-  const { setMenu, setBasket, isModeAdmin, setIsModeAdmin, isCollapsed, setIsCollapsed } = useOrderContext()
+  const { setMenu, setBasket, isModeAdmin, setIsModeAdmin, hidePanel } = useOrderContext()
   const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(getLocalStorage("isModalShortcutsVisible") as boolean | null)
   if (isModalShortcutsVisible === null) {
     setIsModalShortcutsVisible(true)
@@ -25,16 +25,8 @@ export default function OrderPage() {
     setIsModalShortcutsVisible(false)
   }
 
-  const hidePanel = (
-    isModeAdmin: boolean,
-    isCollapsed: boolean,
-    setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
-    isModeAdmin && setIsCollapsed(!isCollapsed)
-  }
-
   useCreateKeyboardShortcut("i", () => setIsModeAdmin(!isModeAdmin))
-  useCreateKeyboardShortcut("j", () => hidePanel(isModeAdmin, isCollapsed, setIsCollapsed))
+  useCreateKeyboardShortcut("j", () => hidePanel())
 
   // 1e possibilité : vérification via une condition dans le useEffect()
   // 2e possibilité : non-null assertion operator : "!"
