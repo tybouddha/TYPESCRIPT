@@ -7,11 +7,17 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useOrderContext } from "@/context/OrderContext"
 import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts"
+import { getLocalStorage, setLocalStorage } from "@/utils/window"
 
 export default function OrderPage() {
   // state
   const { username } = useParams()
   const { setMenu, setBasket, isModeAdmin } = useOrderContext()
+  let isModalShortcutsVisible = getLocalStorage("isModalShortcutsVisible") as boolean | null
+  if (isModalShortcutsVisible === null) {
+    isModalShortcutsVisible = true
+    setLocalStorage("isModalShortcutsVisible", true)
+  }
 
   // 1e possibilité : vérification via une condition dans le useEffect()
   // 2e possibilité : non-null assertion operator : "!"
@@ -24,7 +30,7 @@ export default function OrderPage() {
   //affichage (render)
   return (
     <OrderPageStyled>
-      {isModeAdmin && <ModalShortcuts />}
+      {isModalShortcutsVisible && isModeAdmin && <ModalShortcuts />}
       <div className="container">
         <Navbar />
         <Main />

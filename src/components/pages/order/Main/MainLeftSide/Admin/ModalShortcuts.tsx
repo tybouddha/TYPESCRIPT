@@ -3,25 +3,28 @@ import { isMac } from "@/utils/window"
 import styled from "styled-components";
 
 export const ModalShortcuts = () => {
-    const raccourci = isMac() ? "⌘" : "CTRL"
+  const raccourci = isMac() ? "⌘" : "CTRL"
 
-    // const deletePermanently = () => { }
+  const deletePermanently = () => {
+    alert("Ne plus rappeler")
+  }
 
-    return (
-        <ModalShortcutStyled>
-            <span className="title">💡 Pour aller plus vite :</span>
-            <span className="shortcut-message i">{`${raccourci} + i : Toggle "mode" admin`}</span>
-            <span className="shortcut-message j">{`${raccourci} + j : Toggle "panel" admin`}</span>
-            {/* <button>
-                X <span className="shortcut-message j" onClick={deletePermanently}>Ne plus rappeler</span>
-            </button> */}
-        </ModalShortcutStyled>
-    )
+  return (
+    <ModalShortcutStyled>
+      <span className="title">💡 Pour aller plus vite :</span>
+      <span className="shortcut-message i">{`${raccourci} + i : Toggle "mode" admin`}</span>
+      <span className="shortcut-message j">{`${raccourci} + j : Toggle "panel" admin`}</span>
+      <button onClick={deletePermanently}>
+        X <span className="shortcut-message j" >Ne plus rappeler</span>
+      </button>
+    </ModalShortcutStyled>
+  )
 }
 
 const ModalShortcutStyled = styled.div`
     border-radius: ${theme.borderRadius.round};
     position: absolute;
+    z-index: 1;
     top: 30px;
     left: 30px;
     display: flex;
