@@ -50,7 +50,7 @@ export default function LoginForm() {
 
   // affichage
   return (
-    <LoginFormStyled action="submit" onSubmit={handleSubmit}>
+    <LoginFormStyled action="submit" onSubmit={handleSubmit} noValidate>
       <Welcome />
       <div className="input-and-error-message">
         <TextInput
@@ -60,6 +60,8 @@ export default function LoginForm() {
           Icon={<BsPersonCircle />}
           className="input-login"
           version="normal"
+          required
+          aria-required
         />
         {status === "error" && <ErrorMessage error={error} />}
       </div>
