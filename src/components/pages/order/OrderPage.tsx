@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { theme } from "@/theme/theme"
-//@ts-ignore
 import Main from "./Main/Main"
 import Navbar from "./Navbar/Navbar"
 import { initialiseUserSession } from "./helpers/initialiseUserSession"
@@ -25,7 +24,7 @@ export default function OrderPage() {
   //affichage (render)
   return (
     <OrderPageStyled>
-      <ModalShortcuts className="shortcuts" />
+      <ModalShortcuts />
       <div className="container">
         <Navbar />
         <Main />
@@ -40,11 +39,8 @@ const OrderPageStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 5px solid blue;
 
   .container {
-    background: red;
-    border: 5px solid red;
     height: 95vh;
     width: 1400px;
     display: flex;
@@ -53,7 +49,6 @@ const OrderPageStyled = styled.div`
   }
 
   .shortcuts {
-    border: 1px solid blue;
     position: absolute;
     z-index: 1;
     top: 40px;
