@@ -11,7 +11,7 @@ import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts"
 export default function OrderPage() {
   // state
   const { username } = useParams()
-  const { setMenu, setBasket } = useOrderContext()
+  const { setMenu, setBasket, isModeAdmin } = useOrderContext()
 
   // 1e possibilité : vérification via une condition dans le useEffect()
   // 2e possibilité : non-null assertion operator : "!"
@@ -24,7 +24,7 @@ export default function OrderPage() {
   //affichage (render)
   return (
     <OrderPageStyled>
-      <ModalShortcuts />
+      {isModeAdmin && <ModalShortcuts />}
       <div className="container">
         <Navbar />
         <Main />
