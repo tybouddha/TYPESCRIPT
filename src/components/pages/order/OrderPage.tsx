@@ -3,7 +3,7 @@ import { theme } from "@/theme/theme"
 import Main from "./Main/Main"
 import Navbar from "./Navbar/Navbar"
 import { initialiseUserSession } from "./helpers/initialiseUserSession"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useOrderContext } from "@/context/OrderContext"
 import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts"
@@ -13,10 +13,15 @@ export default function OrderPage() {
   // state
   const { username } = useParams()
   const { setMenu, setBasket, isModeAdmin } = useOrderContext()
-  let isModalShortcutsVisible = getLocalStorage("isModalShortcutsVisible") as boolean | null
+  const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(getLocalStorage("isModalShortcutsVisible") as boolean | null)
   if (isModalShortcutsVisible === null) {
-    isModalShortcutsVisible = true
+    setIsModalShortcutsVisible(true)
     setLocalStorage("isModalShortcutsVisible", true)
+  }
+
+  const deletePermanently = () => {
+    setLocalStorage("isModalShortcutsVisible", false)
+    setIsModalShortcutsVisible(false)
   }
 
   // 1e possibilité : vérification via une condition dans le useEffect()
@@ -30,7 +35,7 @@ export default function OrderPage() {
   //affichage (render)
   return (
     <OrderPageStyled>
-      {isModalShortcutsVisible && isModeAdmin && <ModalShortcuts />}
+      {isModalShortcutsVisible && isModeAdmin && <ModalShortcuts onClick={deletePermanently} />}
       <div className="container">
         <Navbar />
         <Main />
