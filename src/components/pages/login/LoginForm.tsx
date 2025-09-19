@@ -11,13 +11,16 @@ import Welcome from "./Welcome"
 import { loginFormValidator } from "./loginFormValidator"
 import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage"
 
+type Status = "success" | "loading" | "error" | "idle"
+
 export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("")
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(true)
+  // const [isLoading, setIsLoading] = useState(false)
+  // const [hasError, setHasError] = useState(true)
   const [error, setError] = useState<string>("")
+  const [status, setStatus] = useState<Status>("idle")
 
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -26,12 +29,12 @@ export default function LoginForm() {
     const result = loginFormValidator.safeParse(username)
 
     if (!result.success) {
-      setHasError(true)
+      setStatus("error") // setHasError(true)
       setError(result.error.issues[0].message)
       return
     }
 
-    setIsLoading(true)
+    setStatus("loading") // setIsLoading(true)
 
     const userReceived = await authenticateUser(username)
 
@@ -49,21 +52,19 @@ export default function LoginForm() {
   return (
     <LoginFormStyled action="submit" onSubmit={handleSubmit}>
       <Welcome />
-      <div>
-        <div className="input-and-error-message">
-          <TextInput
-            value={username}
-            onChange={handleChange}
-            placeholder={"Entrez votre prénom"}
-            Icon={<BsPersonCircle />}
-            className="input-login"
-            version="normal"
-          />
-          {hasError && <ErrorMessage error={error} />}
-        </div>
-
-        <Button isLoading={isLoading} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+      <div className="input-and-error-message">
+        <TextInput
+          value={username}
+          onChange={handleChange}
+          placeholder={"Entrez votre prénom"}
+          Icon={<BsPersonCircle />}
+          className="input-login"
+          version="normal"
+        />
+        {status === "error" && <ErrorMessage error={error} />}
       </div>
+
+      <Button isLoading={status === "loading"} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
     </LoginFormStyled>
   )
 }
