@@ -8,11 +8,12 @@ import { useParams } from "react-router-dom"
 import { useOrderContext } from "@/context/OrderContext"
 import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts"
 import { getLocalStorage, setLocalStorage } from "@/utils/window"
+import { useCreateKeyboardShortcut } from "@/hooks/useCreateKeyboardShortcut"
 
 export default function OrderPage() {
   // state
   const { username } = useParams()
-  const { setMenu, setBasket, isModeAdmin } = useOrderContext()
+  const { setMenu, setBasket, isModeAdmin, setIsModeAdmin, isCollapsed, setIsCollapsed } = useOrderContext()
   const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(getLocalStorage("isModalShortcutsVisible") as boolean | null)
   if (isModalShortcutsVisible === null) {
     setIsModalShortcutsVisible(true)
@@ -23,6 +24,17 @@ export default function OrderPage() {
     setLocalStorage("isModalShortcutsVisible", false)
     setIsModalShortcutsVisible(false)
   }
+
+  const hidePanel = (
+    isModeAdmin: boolean,
+    isCollapsed: boolean,
+    setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    isModeAdmin && setIsCollapsed(!isCollapsed)
+  }
+
+  useCreateKeyboardShortcut("i", () => setIsModeAdmin(!isModeAdmin))
+  useCreateKeyboardShortcut("j", () => hidePanel(isModeAdmin, isCollapsed, setIsCollapsed))
 
   // 1e possibilité : vérification via une condition dans le useEffect()
   // 2e possibilité : non-null assertion operator : "!"
