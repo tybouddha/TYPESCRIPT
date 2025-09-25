@@ -1,11 +1,12 @@
 import { Chip } from "@/components/reusable-ui/Chip";
 import { badgeAnimation, chipAnimation } from "@/theme/animations";
 import { theme } from "@/theme/theme";
+import { Category } from "@/types/Category";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type ChipsProps = {
-  categories: [];
+  categories: Category[];
 };
 
 export const Chips = ({ categories }: ChipsProps) => {

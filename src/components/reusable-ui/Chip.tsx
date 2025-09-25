@@ -10,8 +10,8 @@ type ChipProps = {
   iconName: string;
   color: string;
   className: string;
-  isActive: boolean;
-  backgroundColor: string;
+  isActive?: boolean;
+  backgroundColor?: string;
 };
 
 export const Chip = ({
@@ -19,7 +19,7 @@ export const Chip = ({
   iconName,
   color,
   className,
-  isActive,
+  isActive = false,
   backgroundColor,
   ...restProps
 }: ChipProps) => {
