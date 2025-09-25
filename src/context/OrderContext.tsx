@@ -1,4 +1,10 @@
-import { createContext, useContext, useRef, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { useMenu } from "@/hooks/useMenu";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
@@ -49,7 +55,7 @@ type OrderContextType = {
 const OrderContext = createContext<OrderContextType | undefined>(undefined); // pas la peine de mettre null, undefined suffit amplement mais faut l'écrire explicitmeent car createContext attend forcément un argument.
 
 // 2. Installation du context
-export const OrderContextProvider = ({ children }: any) => {
+export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   const [isModeAdmin, setIsModeAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
@@ -74,14 +80,16 @@ export const OrderContextProvider = ({ children }: any) => {
     categoryMenus,
   } = useCategories();
 
-  const handleProductSelected = async (idProductClicked: string) => {
+  const handleProductSelected = async (
+    idProductClicked: string
+  ): Promise<void> => {
     if (!isModeAdmin || !menu) return;
     const productClickedOn = findObjectById(idProductClicked, menu);
     if (!productClickedOn) return;
     await setIsCollapsed(false);
     await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT);
     await setProductSelected(productClickedOn);
-    // titleEditRef.current && titleEditRef.current.focus() // ériture équivalente
+    // titleEditRef.current && titleEditRef.current.focus() // écriture équivalente
     titleEditRef.current?.focus();
   };
 
