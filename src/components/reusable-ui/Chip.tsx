@@ -59,7 +59,10 @@ export const Chip = ({
   );
 };
 
-type ChipStyledProps = any;
+type ChipStyledProps = {
+  borderColor: string;
+  backgroundColor: string;
+};
 
 const ChipStyled = styled.div<ChipStyledProps>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
