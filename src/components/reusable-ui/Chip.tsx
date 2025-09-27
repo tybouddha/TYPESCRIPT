@@ -1,25 +1,22 @@
 import { theme } from "@/theme/theme";
-// import { ComponentProps, HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 import { getCategoryIcon } from "@/utils/icon";
 import { applyOpacity } from "@/utils/color";
 import { IS_SELECTED_COLOR } from "@/constants/categories";
+import { Category } from "@/types/Category";
 
-type ChipProps = {
-  label: string;
-  iconName: string;
-  color: string;
-  className: string;
-  isActive?: boolean;
-  backgroundColor?: string;
-};
+type ChipProps = Category &
+  ComponentPropsWithoutRef<"div"> & {
+    backgroundColor?: string;
+  };
 
 export const Chip = ({
   label,
   iconName,
   color,
   className,
-  isActive = false,
+  isActive,
   backgroundColor,
   ...restProps
 }: ChipProps) => {
@@ -62,6 +59,7 @@ export const Chip = ({
 type ChipStyledProps = {
   borderColor: string;
   backgroundColor: string;
+  color: string;
 };
 
 const ChipStyled = styled.div<ChipStyledProps>`

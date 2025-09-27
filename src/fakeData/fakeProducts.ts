@@ -1,7 +1,7 @@
-import { Product } from "@/types/Product"
-import { fakeCategories } from "./fakeCategories"
+import { Product } from "@/types/Product";
+import { fakeCategories } from "./fakeCategories";
 
-const EMPTY: Product[] = []
+const EMPTY: Product[] = [];
 
 const SMALL: Product[] = [
   {
@@ -35,7 +35,7 @@ const SMALL: Product[] = [
     isPublicised: false,
     categories: [fakeCategories.LARGE[4]],
   },
-]
+];
 
 const MEDIUM: Product[] = [
   {
@@ -69,7 +69,7 @@ const MEDIUM: Product[] = [
     isPublicised: false,
     categories: [fakeCategories.LARGE[3]],
   },
-]
+];
 
 const LARGE: Product[] = [
   {
@@ -134,11 +134,11 @@ const LARGE: Product[] = [
     isPublicised: false,
     categories: [fakeCategories.LARGE[0]],
   },
-]
+];
 
 export const fakeProducts = {
   EMPTY,
   SMALL,
   MEDIUM,
   LARGE,
-}
+};

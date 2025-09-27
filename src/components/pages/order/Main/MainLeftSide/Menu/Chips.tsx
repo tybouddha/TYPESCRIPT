@@ -6,11 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type ChipsProps = {
-  categories: Category[];
+  categories?: Category[];
 };
 
 export const Chips = ({ categories }: ChipsProps) => {
-  console.log("categories: ", categories);
   const [isScrollable, setIsScrollable] = useState(false);
   const [isAtEnd, setIsAtEnd] = useState(false);
 

@@ -1,7 +1,7 @@
-import { Category } from "@/types/Category"
-import { theme } from "@/theme/theme"
+import { Category } from "@/types/Category";
+import { theme } from "@/theme/theme";
 
-const EMPTY: Category[] = []
+const EMPTY: Category[] = [];
 
 const SMALL: Category[] = [
   {
@@ -10,9 +10,9 @@ const SMALL: Category[] = [
     color: theme.colors.primary,
     iconName: "sandwich",
     value: "burger",
-    isActive: false
+    isActive: false,
   },
-]
+];
 
 const MEDIUM: Category[] = [
   {
@@ -21,7 +21,7 @@ const MEDIUM: Category[] = [
     color: theme.colors.primary,
     iconName: "sandwich",
     value: "burger",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -29,7 +29,7 @@ const MEDIUM: Category[] = [
     color: theme.colors.blue,
     iconName: "verre",
     value: "drink",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -37,9 +37,9 @@ const MEDIUM: Category[] = [
     color: theme.colors.rose,
     iconName: "dessert",
     value: "dessert",
-    isActive: false
+    isActive: false,
   },
-]
+];
 
 const LARGE: Category[] = [
   {
@@ -48,7 +48,7 @@ const LARGE: Category[] = [
     color: theme.colors.primary,
     iconName: "sandwich",
     value: "burger",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -56,7 +56,7 @@ const LARGE: Category[] = [
     color: theme.colors.blue,
     iconName: "verre",
     value: "drink",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -64,7 +64,7 @@ const LARGE: Category[] = [
     color: theme.colors.rose,
     iconName: "dessert",
     value: "dessert",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -72,7 +72,7 @@ const LARGE: Category[] = [
     color: theme.colors.success,
     iconName: "veggies",
     value: "salade",
-    isActive: false
+    isActive: false,
   },
   {
     id: crypto.randomUUID(),
@@ -80,14 +80,13 @@ const LARGE: Category[] = [
     color: theme.colors.yellow,
     iconName: "frites",
     value: "accompagnement",
-    isActive: false
+    isActive: false,
   },
-]
-
+];
 
 export const fakeCategories = {
   EMPTY,
   SMALL,
   MEDIUM,
   LARGE,
-}
+};

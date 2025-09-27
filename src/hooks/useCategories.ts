@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { deepClone } from "@/utils/array";
-import { syncBothMenus } from "@/api/product";
+//@ts-ignore
+import { syncBothMenus } from "../api/product";
 import { fakeCategories } from "@/fakeData/fakeCategories";
 import { CATEGORY_ALL } from "@/constants/categories";
 import { CATEGORY_MENUS } from "@/constants/menus";
 import { updateCategoriesInDB } from "@/api/categories";
 import { Category } from "@/types/Category";
-import { fakeMenu } from "@/fakeData/fakeMenu";
 
 // ensemble des catégories disponibles pour tous les produits du catalog
 export const useCategories = () => {
@@ -17,7 +17,6 @@ export const useCategories = () => {
   const [categoryMenus, setCategoryMenus] = useState<Category>(CATEGORY_MENUS);
 
   // comportements (gestionnaire de state ou "state handlers")
-
   const handleAddCategory = (categoryToAdd: Category, username: string) => {
     if (!categories) return;
     // 1. copie du tableau
@@ -31,23 +30,23 @@ export const useCategories = () => {
     updateCategoriesInDB(username, categoriesUpdated);
   };
 
+  //@ts-ignore
   const handleDeleteCategory = (
-    idOfCategoryToDelete: string,
+    idOfProductToDelete: string,
     username: string
   ) => {
     if (!categories) return;
     //1. copy du state
-    const CategoryCopy = deepClone(categories);
+    const menuCopy = deepClone(categories);
 
     //2. manip de la copie state
-    const CategoryUpdated = CategoryCopy.filter(
-      (category) => category.id !== idOfCategoryToDelete
+    const menuUpdated = menuCopy.filter(
+      (product) => product.id !== idOfProductToDelete
     );
 
     //3. update du state
-    setCategories(CategoryUpdated);
-    // Utiliser la bonne fonction pour synchroniser les catégories
-    updateCategoriesInDB(username, CategoryUpdated);
+    setCategories(menuUpdated);
+    // syncBothMenus(username, menuUpdated)
   };
 
   const toggleAllCategories = () => {
@@ -92,28 +91,30 @@ export const useCategories = () => {
     setCategoryAll({ ...categoryAll, isActive: false });
   };
 
+  //@ts-ignore
   const handleEditCategory = (
-    categoryBeingEdited: Category,
+    productBeingEdited: Product,
     username: string
   ) => {
     // 1. copie du state (deep clone)
     if (!categories) return;
-    const CategoryCopy = deepClone(categories);
+    const menuCopy = deepClone(categories);
 
     // 2. manip de la copie du state
-    const indexOfCategoryToEdit = categories.findIndex(
-      (category) => category.id === categoryBeingEdited.id
+    const indexOfProductToEdit = categories.findIndex(
+      (menuProduct) => menuProduct.id === productBeingEdited.id
     );
-    CategoryCopy[indexOfCategoryToEdit] = categoryBeingEdited;
+    menuCopy[indexOfProductToEdit] = productBeingEdited;
 
     // 3. update du state
-    setCategories(CategoryCopy);
-    updateCategoriesInDB(username, CategoryCopy);
+    setCategories(menuCopy);
+    // syncBothMenus(username, menuCopy)
   };
 
+  //@ts-ignore
   const resetCategories = (username: string) => {
     setCategories(fakeCategories.SMALL);
-    syncBothMenus(username, fakeMenu.SMALL);
+    // syncBothMenus(username, fakeMenu.SMALL)
   };
 
   return {

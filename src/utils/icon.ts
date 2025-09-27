@@ -7,10 +7,8 @@ import { GiChocolateBar } from "react-icons/gi";
 import { CiFries } from "react-icons/ci";
 import { BsCupHotFill } from "react-icons/bs";
 import { IoFastFoodOutline } from "react-icons/io5";
+import { IconName } from "@/types/Category";
 import { IconType } from "react-icons";
-import { IconName } from "@/constants/icon";
-
-export type CategoryIconReturn = IconType | null;
 
 // nom technique : dictionnaire, mapping JS/TS, lookup table
 // export const ICON_MAP: Record<IconName, IconType> = {
@@ -27,16 +25,16 @@ export type CategoryIconReturn = IconType | null;
 //     ICON_MAP[name] ?? MdQuestionMark
 
 // ci-dessous, ça marche et ça réuni dans getCategoryIcon() à la fois la fonction utilitaire et le dictionnaire / mapping / lookup table.
-export const getCategoryIcon = (iconName: string): CategoryIconReturn => {
-  if (iconName === IconName.SANDWICH) return FaHamburger;
-  if (iconName === IconName.VERRE) return RiDrinks2Line;
-  if (iconName === IconName.VEGGIES) return LuSalad;
-  if (iconName === IconName.DESSERT) return LuCakeSlice;
-  if (iconName === IconName.FRITES) return CiFries;
-  if (iconName === IconName.CHOCOLATE_BAR) return GiChocolateBar;
-  if (iconName === IconName.TASSE_CHAUDE) return BsCupHotFill;
-  if (iconName === IconName.MENU) return IoFastFoodOutline;
-  if (iconName === IconName.EMPTY) return null;
+export const getCategoryIcon = (iconName: IconName): IconType | null => {
+  if (iconName === "sandwich") return FaHamburger;
+  if (iconName === "verre") return RiDrinks2Line;
+  if (iconName === "veggies") return LuSalad;
+  if (iconName === "dessert") return LuCakeSlice;
+  if (iconName === "frites") return CiFries;
+  if (iconName === "chocolateBar") return GiChocolateBar;
+  if (iconName === "tasse chaude") return BsCupHotFill;
+  if (iconName === "menu") return IoFastFoodOutline;
+  if (iconName === "") return null;
   return MdQuestionMark;
 };
-// attention, ça retourne non pas un composant Icon mais la référence au composant Icon ☝️
+// attention, ça retourne nom pas un composant Icon mais la référence au composant Icon ☝️

@@ -1,19 +1,19 @@
-import styled from "styled-components"
-import { useOrderContext } from "@/context/OrderContext"
-import AdminPanel from "./AdminPanel/AdminPanel"
-import AdminTabs from "./AdminTabs"
-import { fadeInFromBottom } from "@/theme/animations"
-import { theme } from "@/theme/theme"
+import styled from "styled-components";
+import { useOrderContext } from "@/context/OrderContext";
+import AdminPanel from "./AdminPanel/AdminPanel";
+import AdminTabs from "./AdminTabs";
+import { fadeInFromBottom } from "@/theme/animations";
+import { theme } from "@/theme/theme";
 
 export default function Admin() {
-  const { isCollapsed } = useOrderContext()
+  const { isCollapsed } = useOrderContext();
 
   return (
     <AdminStyled>
       <AdminTabs />
       {!isCollapsed && <AdminPanel />}
     </AdminStyled>
-  )
+  );
 }
 
 const AdminStyled = styled.div`
@@ -24,4 +24,4 @@ const AdminStyled = styled.div`
   right: 0;
 
   animation: ${fadeInFromBottom} ease-out ${theme.animations.speed.slow};
-`
+`;

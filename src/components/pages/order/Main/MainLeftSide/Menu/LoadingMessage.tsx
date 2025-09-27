@@ -1,12 +1,12 @@
-import styled from "styled-components"
-import { theme } from "@/theme/theme"
+import styled from "styled-components";
+import { theme } from "@/theme/theme";
 
 export default function LoadingMessage() {
   return (
     <LoadingMessageStyled>
       <span className="title">Chargement en cours ...</span>
     </LoadingMessageStyled>
-  )
+  );
 }
 
 const LoadingMessageStyled = styled.div`
@@ -24,4 +24,4 @@ const LoadingMessageStyled = styled.div`
     font-size: ${theme.fonts.size.P4};
     font-weight: ${theme.fonts.weights.regular};
   }
-`
+`;
