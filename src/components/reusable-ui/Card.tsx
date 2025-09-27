@@ -1,27 +1,27 @@
-import styled, { css } from "styled-components";
-import { theme } from "@/theme/theme";
-import Button from "./Button";
-import { TiDelete } from "react-icons/ti";
-import { fadeInFromRight, fadeInFromTop } from "@/theme/animations";
-import { Chips } from "../pages/order/Main/MainLeftSide/Menu/Chips";
-import { Category } from "@/types/Category";
+import styled, { css } from "styled-components"
+import { theme } from "@/theme/theme"
+import Button from "./Button"
+import { TiDelete } from "react-icons/ti"
+import { fadeInFromRight, fadeInFromTop } from "@/theme/animations"
+import { Chips } from "../pages/order/Main/MainLeftSide/Menu/Chips"
+import { Category } from "@/types/Category"
 
 type CardProps = {
-  title?: string;
-  imageSource?: string;
-  leftDescription: string;
-  hasDeleteButton?: boolean;
-  onDelete?: React.MouseEventHandler<HTMLButtonElement>;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-  isHoverable?: boolean;
-  isSelected?: boolean;
-  isMenu?: boolean;
-  onAdd?: React.MouseEventHandler<HTMLButtonElement>;
-  overlapImageSource: string;
-  isOverlapImageVisible?: boolean;
-  categories?: Category[];
-  oldPrice?: number;
-};
+  title?: string
+  imageSource?: string
+  leftDescription: string
+  hasDeleteButton?: boolean
+  onDelete?: React.MouseEventHandler<HTMLButtonElement>
+  onClick?: React.MouseEventHandler<HTMLDivElement>
+  isHoverable?: boolean
+  isSelected?: boolean
+  isMenu?: boolean
+  onAdd?: React.MouseEventHandler<HTMLButtonElement>
+  overlapImageSource: string
+  isOverlapImageVisible?: boolean
+  categories?: Category[]
+  oldPrice?: string
+}
 
 export default function Card({
   title,
@@ -53,11 +53,7 @@ export default function Card({
     >
       <div className="card">
         {hasDeleteButton && (
-          <button
-            className="delete-button"
-            aria-label="delete-button"
-            onClick={onDelete}
-          >
+          <button className="delete-button" aria-label="delete-button" onClick={onDelete}>
             <TiDelete className="icon" />
           </button>
         )}
@@ -66,11 +62,7 @@ export default function Card({
           {isOverlapImageVisible && (
             <div className="overlap">
               <div className="transparent-layer"></div>
-              <img
-                className="overlap-image"
-                src={overlapImageSource}
-                alt="overlap"
-              />
+              <img className="overlap-image" src={overlapImageSource} alt="overlap" />
             </div>
           )}
           <img className="product" src={imageSource} alt={title} />
@@ -94,17 +86,17 @@ export default function Card({
           </div>
         </div>
       </div>
-      {hasDeleteButton && categories && <Chips categories={categories} />}
+      {hasDeleteButton && <Chips categories={categories} />}
     </CardStyled>
-  );
+  )
 }
 
 type CardStyledProps = {
-  isHoverable?: boolean;
-  areChipsVisible?: boolean;
-  isSelected?: boolean;
-  isMenu?: boolean;
-};
+  isHoverable?: boolean
+  areChipsVisible?: boolean
+  isSelected?: boolean
+  isMenu?: boolean
+}
 
 const CardStyled = styled.div<CardStyledProps>`
   ${({ isHoverable }) => isHoverable && hoverableStyle}
@@ -135,7 +127,7 @@ const CardStyled = styled.div<CardStyledProps>`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-radius: ${({ areChipsVisible }) =>
-      areChipsVisible === false && theme.borderRadius.extraRound};
+    areChipsVisible === false && theme.borderRadius.extraRound};
 
     .delete-button {
       border: 1px solid red;
@@ -251,7 +243,7 @@ const CardStyled = styled.div<CardStyledProps>`
             left: 0;
             text-decoration: line-through;
             color: ${({ isSelected }) =>
-              isSelected ? theme.colors.white : theme.colors.redSecondary};
+    isSelected ? theme.colors.white : theme.colors.redSecondary};
             font-size: ${theme.fonts.size.XS};
             font-weight: ${theme.fonts.weights.semiBold};
           }
@@ -271,17 +263,16 @@ const CardStyled = styled.div<CardStyledProps>`
       }
     }
 
-    ${({ isHoverable, isSelected, isMenu }) =>
-      isHoverable && isSelected && selectedStyle(isMenu)}
+    ${({ isHoverable, isSelected, isMenu }) => isHoverable && isSelected && selectedStyle(isMenu)}
   }
-`;
+`
 
 const hoverableStyle = css`
   :hover {
     /* box-shadow: ${theme.shadows.orangeHighlight}; */
     cursor: pointer;
   }
-`;
+`
 
 const selectedStyle = (isMenu?: boolean) => css`
   background: ${isMenu ? theme.colors.purple : theme.colors.primary};
@@ -339,4 +330,4 @@ const selectedStyle = (isMenu?: boolean) => css`
       }
     }
   }
-`;
+`

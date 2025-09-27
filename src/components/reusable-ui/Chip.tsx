@@ -1,45 +1,28 @@
-import { theme } from "@/theme/theme";
-// import { ComponentProps, HTMLAttributes } from "react";
-import styled from "styled-components";
+import { theme } from "@/theme/theme"
+import { ComponentPropsWithoutRef } from "react"
+import styled from "styled-components"
 import { getCategoryIcon } from "@/utils/icon";
 import { applyOpacity } from "@/utils/color";
 import { IS_SELECTED_COLOR } from "@/constants/categories";
+import { Category } from "@/types/Category";
 
-type ChipProps = {
-  label: string;
-  iconName: string;
-  color: string;
-  className: string;
-  isActive?: boolean;
-  backgroundColor?: string;
-};
 
-export const Chip = ({
-  label,
-  iconName,
-  color,
-  className,
-  isActive = false,
-  backgroundColor,
-  ...restProps
-}: ChipProps) => {
-  const defaultBorderColor = color
-    ? applyOpacity(color as string, 0.3)
-    : "transparent";
-  const defaultBackgroundColor = color
-    ? applyOpacity(color as string, 0.1)
-    : "transparent";
+type ChipProps = Category & ComponentPropsWithoutRef<"div"> & {
+  backgroundColor?: string
+}
 
-  const IconToDisplay = getCategoryIcon(iconName);
+export const Chip = ({ label, iconName, color, className, isActive, backgroundColor, ...restProps }: ChipProps) => {
+  const defaultBorderColor = color ? applyOpacity(color as string, 0.3) : "transparent"
+  const defaultBackgroundColor = color ? applyOpacity(color as string, 0.1) : "transparent"
 
-  const getActiveColor = () =>
-    backgroundColor ? backgroundColor : IS_SELECTED_COLOR.backgroundColor;
+  const IconToDisplay = getCategoryIcon(iconName)
 
-  const colorApplied = isActive ? IS_SELECTED_COLOR.color : color;
-  const backgroundColorApplied = isActive
-    ? getActiveColor()
-    : defaultBackgroundColor;
-  const borderColorApplied = isActive ? getActiveColor() : defaultBorderColor;
+  const getActiveColor = () => backgroundColor ? backgroundColor : IS_SELECTED_COLOR.backgroundColor
+
+  const colorApplied = isActive ? IS_SELECTED_COLOR.color : color
+  const backgroundColorApplied = isActive ? getActiveColor() : defaultBackgroundColor
+  const borderColorApplied = isActive ? getActiveColor() : defaultBorderColor
+
 
   return (
     <ChipStyled
@@ -49,20 +32,17 @@ export const Chip = ({
       className={className}
       {...restProps}
     >
-      {IconToDisplay && (
-        <div className="icon">
-          <IconToDisplay color={color} />
-        </div>
-      )}
+      {IconToDisplay && <div className="icon"><IconToDisplay color={color} /></div>}
       {label && <span className="label">{label}</span>}
     </ChipStyled>
-  );
-};
+  )
+}
 
 type ChipStyledProps = {
-  borderColor: string;
-  backgroundColor: string;
-};
+  borderColor: string
+  backgroundColor: string
+  color: string
+}
 
 const ChipStyled = styled.div<ChipStyledProps>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
@@ -88,4 +68,7 @@ const ChipStyled = styled.div<ChipStyledProps>`
     margin-left: 5px;
     color: ${({ color }) => color};
   }
-`;
+
+  
+
+`
