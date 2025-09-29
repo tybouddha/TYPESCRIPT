@@ -1,17 +1,17 @@
-import { Category } from "@/types/Category"
-import { Product } from "@/types/Product"
+import { Category } from "@/types/Category";
+import { Product } from "@/types/Product";
 
 export const checkIfProductIsClicked = (
   idProductInMenu: string,
   idProductClickedOn: string
 ): boolean => {
-  return idProductInMenu === idProductClickedOn
-}
+  return idProductInMenu === idProductClickedOn;
+};
 
 export const getProductsToDisplay = (
   categoryAll: Category,
   products: Product[],
-  activeCategory: Category
+  activeCategory: Category | undefined
 ) => {
   const productsToDisplayed = categoryAll.isActive
     ? products
@@ -19,6 +19,6 @@ export const getProductsToDisplay = (
         categoriesFromMenu?.some(
           (categoryFromMenu) => categoryFromMenu.label === activeCategory?.label
         )
-      )
-  return productsToDisplayed
-}
+      );
+  return productsToDisplayed;
+};

@@ -72,7 +72,6 @@ export default function CatalogProducts() {
   }
 
   const activeCategory = getCategoryActive(categories);
-  if (!activeCategory) return;
   const productsToDisplay = getProductsToDisplay(
     categoryAll,
     menu,
