@@ -1,17 +1,17 @@
-import styled from "styled-components";
-import { theme } from "@/theme/theme";
+import styled from "styled-components"
+import { theme } from "@/theme/theme"
 
 type CopyrightsProps = {
-  className?: string;
-};
+    className?: string
+}
 
 export default function Copyrights({ className }: CopyrightsProps) {
-  return (
-    <CopyrightStyled className={className}>
-      <span>© 2025 Groovy Burger — Tous droits réservés.</span>
-      <span>Made with ❤️ by ViDev</span>
-    </CopyrightStyled>
-  );
+    return (
+        <CopyrightStyled className={className}>
+            <span>© 2025 Groovy Burger — Tous droits réservés.</span>
+            <span>Made with ❤️ by ViDev</span>
+        </CopyrightStyled>
+    )
 }
 
 const CopyrightStyled = styled.div`
@@ -30,4 +30,4 @@ const CopyrightStyled = styled.div`
   font-size: ${theme.fonts.size.SM};
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   pointer-events: none;
-`;
+` 
