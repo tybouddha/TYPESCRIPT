@@ -1,30 +1,29 @@
-import { Chip } from "@/components/reusable-ui/Chip"
-import { badgeAnimation, chipAnimation } from "@/theme/animations"
-import { theme } from "@/theme/theme"
-import { Category } from "@/types/Category"
-import { useEffect, useRef, useState } from "react"
-import styled from "styled-components"
+import { Chip } from "@/components/reusable-ui/Chip";
+import { badgeAnimation, chipAnimation } from "@/theme/animations";
+import { theme } from "@/theme/theme";
+import { Category } from "@/types/Category";
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
 type ChipsProps = {
-  categories?: Category[]
-}
+  categories?: Category[];
+};
 
 export const Chips = ({ categories }: ChipsProps) => {
   const [isScrollable, setIsScrollable] = useState(false);
   const [isAtEnd, setIsAtEnd] = useState(false);
 
-
   const elementScrollable = useRef<HTMLDivElement>(null);
   const scrollToRight = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (elementScrollable.current) {
-      event.stopPropagation()
+      event.stopPropagation();
       elementScrollable.current.scrollBy({ left: 110, behavior: "smooth" }); // 110px à droite
     }
-  }
+  };
 
   const scrollToStart = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (elementScrollable.current) {
-      event.stopPropagation()
+      event.stopPropagation();
       elementScrollable.current.scrollTo({ left: 0, behavior: "smooth" });
     }
   };
@@ -32,7 +31,8 @@ export const Chips = ({ categories }: ChipsProps) => {
   useEffect(() => {
     const checkScrollable = () => {
       if (elementScrollable.current) {
-        const { scrollWidth, clientWidth, scrollLeft } = elementScrollable.current;
+        const { scrollWidth, clientWidth, scrollLeft } =
+          elementScrollable.current;
         setIsScrollable(scrollWidth > clientWidth);
         setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1); // On vérifie si on est tout à droite
       }
@@ -47,7 +47,10 @@ export const Chips = ({ categories }: ChipsProps) => {
     return () => {
       window.removeEventListener("resize", checkScrollable);
       if (elementScrollable.current) {
-        elementScrollable.current.removeEventListener("scroll", checkScrollable);
+        elementScrollable.current.removeEventListener(
+          "scroll",
+          checkScrollable
+        );
       }
     };
   }, []);
@@ -65,12 +68,20 @@ export const Chips = ({ categories }: ChipsProps) => {
         ))}
         {/* {isAtEnd === true && isScrollable && <button onClick={scrollToRight} className="button-scroll">{"->"}</button>} */}
         {/* {isScrollable && <button onClick={scrollToRight} className="button-scroll">{"->"}</button>} */}
-        {isScrollable && !isAtEnd && <button className="button-scroll-to-right" onClick={scrollToRight}>➡️</button>}
-        {isScrollable && isAtEnd && <button className="button-scroll-to-start" onClick={scrollToStart}>⬅️</button>}
+        {isScrollable && !isAtEnd && (
+          <button className="button-scroll-to-right" onClick={scrollToRight}>
+            ➡️
+          </button>
+        )}
+        {isScrollable && isAtEnd && (
+          <button className="button-scroll-to-start" onClick={scrollToStart}>
+            ⬅️
+          </button>
+        )}
       </div>
     </ChipsStyled>
-  )
-}
+  );
+};
 
 const ChipsStyled = styled.div`
   /* position: absolute; */
@@ -154,9 +165,11 @@ const ChipsStyled = styled.div`
       /* backdrop-filter: blur(10px); */
       /* box-shadow: -8px 18px 10px 0px rgb(0 0 0 / 20%) inset; */
       clip-path: inset(0 0 50% 0);
-      background: linear-gradient(to bottom, #f5f5f7 100% rgb(245, 245, 247) 0%);
+      background: linear-gradient(
+        to bottom,
+        #f5f5f7 100% rgb(245, 245, 247) 0%
+      );
       /* box-shadow: -8px 8px 20px 0px rgb(0 0 0 / 20%); */
-
     }
   }
 
@@ -192,7 +205,7 @@ const ChipsStyled = styled.div`
       cursor: pointer;
       /* top: 20px; */
 
-      &:hover{
+      &:hover {
         opacity: 100%;
       }
     }
@@ -205,9 +218,9 @@ const ChipsStyled = styled.div`
       background-color: #000;
       /* top: 20px; */
 
-      &:hover{
+      &:hover {
         opacity: 100%;
       }
     }
   }
-`
+`;
