@@ -1,52 +1,52 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { IoChevronForward } from "react-icons/io5";
-import { BsPersonCircle } from "react-icons/bs";
-import TextInput from "@/components/reusable-ui/TextInput";
-import Button from "@/components/reusable-ui/Button";
-import { theme } from "@/theme/theme";
-import { authenticateUser } from "@/api/user";
-import Welcome from "./Welcome";
-import { loginFormValidator } from "./loginFormValidator";
-import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import { IoChevronForward } from "react-icons/io5"
+import { BsPersonCircle } from "react-icons/bs"
+import TextInput from "@/components/reusable-ui/TextInput"
+import Button from "@/components/reusable-ui/Button"
+import { theme } from "@/theme/theme"
+import { authenticateUser } from "@/api/user"
+import Welcome from "./Welcome"
+import { loginFormValidator } from "./loginFormValidator"
+import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage"
 
-type Status = "success" | "loading" | "error" | "idle";
+type Status = "success" | "loading" | "error" | "idle"
 
 export default function LoginForm() {
   // state
-  const [username, setUsername] = useState<string>("");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState<string>("")
+  const navigate = useNavigate()
   // const [isLoading, setIsLoading] = useState(false)
   // const [hasError, setHasError] = useState(true)
-  const [error, setError] = useState<string>("");
-  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string>("")
+  const [status, setStatus] = useState<Status>("idle")
 
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const result = loginFormValidator.safeParse(username);
+    const result = loginFormValidator.safeParse(username)
 
     if (!result.success) {
-      setStatus("error"); // setHasError(true)
-      setError(result.error.issues[0].message);
-      return;
+      setStatus("error") // setHasError(true)
+      setError(result.error.issues[0].message)
+      return
     }
 
-    setStatus("loading"); // setIsLoading(true)
+    setStatus("loading") // setIsLoading(true)
 
-    const userReceived = await authenticateUser(username);
+    const userReceived = await authenticateUser(username)
 
     setTimeout(() => {
-      setUsername("");
-      navigate(`order/${userReceived.username}`);
-    }, 1500);
-  };
+      setUsername("")
+      navigate(`order/${userReceived.username}`)
+    }, 1500)
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
+    setUsername(event.target.value)
+  }
 
   // affichage
   return (
@@ -66,13 +66,9 @@ export default function LoginForm() {
         {status === "error" && <ErrorMessage error={error} />}
       </div>
 
-      <Button
-        isLoading={status === "loading"}
-        label={"Accéder à mon espace"}
-        Icon={<IoChevronForward />}
-      />
+      <Button isLoading={status === "loading"} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
     </LoginFormStyled>
-  );
+  )
 }
 
 const LoginFormStyled = styled.form`
@@ -107,4 +103,4 @@ const LoginFormStyled = styled.form`
       margin-bottom: 10px;
     }
   }
-`;
+`

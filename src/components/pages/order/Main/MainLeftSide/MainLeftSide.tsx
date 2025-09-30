@@ -1,14 +1,14 @@
 //@ts-nocheck
-import styled from "styled-components";
-import { useOrderContext } from "@/context/OrderContext";
-import { theme } from "@/theme/theme";
-import Admin from "./Admin/Admin";
-import CatalogProducts from "./CatalogProducts/CatalogProducts";
-import { Filters } from "./Filters";
-import LoadingMessage from "./CatalogProducts/LoadingMessage";
+import styled from "styled-components"
+import { useOrderContext } from "@/context/OrderContext"
+import { theme } from "@/theme/theme"
+import Admin from "./Admin/Admin"
+import CatalogProducts from "./CatalogProducts/CatalogProducts"
+import { Filters } from "./Filters"
+import LoadingMessage from "./CatalogProducts/LoadingMessage"
 
 export default function MainLeftSide() {
-  const { isModeAdmin, menu } = useOrderContext();
+  const { isModeAdmin, menu } = useOrderContext()
 
   return (
     <MainLeftSideStyled>
@@ -22,7 +22,7 @@ export default function MainLeftSide() {
       )}
       {isModeAdmin && <Admin />}
     </MainLeftSideStyled>
-  );
+  )
 }
 
 const MainLeftSideStyled = styled.div`
@@ -34,4 +34,4 @@ const MainLeftSideStyled = styled.div`
   .filters-and-catalog-products {
     overflow-x: hidden;
   }
-`;
+`
