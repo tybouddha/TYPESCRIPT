@@ -1,16 +1,18 @@
-import React from "react";
-import TextInput from "@/components/reusable-ui/TextInput";
-import SelectInput from "@/components/reusable-ui/SelectInput";
-import styled from "styled-components";
-import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
-import { Product } from "@/types/Product";
-import { FormEvents } from "@/types/FormEvents";
-import MultiSelect from "@/components/reusable-ui/MultiSelect/MultiSelect";
-import { useOrderContext } from "@/context/OrderContext";
+import React from "react"
+import TextInput from "@/components/reusable-ui/TextInput"
+import SelectInput from "@/components/reusable-ui/SelectInput"
+import styled from "styled-components"
+import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig"
+import { Product } from "@/types/Product"
+import { FormEvents } from "@/types/FormEvents"
+import MultiSelect from "@/components/reusable-ui/MultiSelect/MultiSelect"
+import { useOrderContext } from "@/context/OrderContext"
+import { MultiValue, SingleValue } from "react-select"
+import { Category } from "@/types/Category"
 
 export type InputsProps = {
-  product: Product;
-} & FormEvents;
+  product: Product
+} & FormEvents
 
 // export const options = [
 //   { value: "chocolate", label: "Chocolate" },
@@ -20,20 +22,22 @@ export type InputsProps = {
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
-    const inputTexts = getInputTextsConfig(product);
-    const inputSelects = getSelectInputConfig(product);
-    const { categories } = useOrderContext();
+    const inputTexts = getInputTextsConfig(product)
+    const inputSelects = getSelectInputConfig(product)
+    const { categories } = useOrderContext()
 
-    const OnChangeMulti = (selectedCategories: unknown) => {
-      if (!onChange) return;
+    const OnChangeMulti = (
+      selectedCategories: SingleValue<Category> | MultiValue<Category>
+    ) => {
+      if (!onChange) return
       const eventMulti = {
         target: {
           name: "categories",
           value: selectedCategories,
         },
-      } as unknown as React.ChangeEvent<HTMLSelectElement>;
-      onChange(eventMulti);
-    };
+      } as unknown as React.ChangeEvent<HTMLSelectElement>
+      onChange(eventMulti)
+    }
 
     // affichage
     return (
@@ -66,7 +70,7 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onFocus={onFocus}
             onBlur={onBlur}
           /> */}
-          <MultiSelect
+          <MultiSelect<Category>
             options={categories}
             name="categories"
             onChange={OnChangeMulti}
@@ -92,9 +96,9 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
           />
         ))}
       </InputsStyled>
-    );
+    )
   }
-);
+)
 
 const InputsStyled = styled.div`
   /* border: 1px solid red; */
@@ -136,4 +140,4 @@ const InputsStyled = styled.div`
   .price {
     grid-area: 3/1/4/2;
   }
-`;
+`

@@ -1,8 +1,8 @@
-import { ComponentProps } from "react";
-import Select from "react-select";
+import { ComponentProps } from "react"
+import Select from "react-select"
 
-type MultiSelectProps = ComponentProps<Select>;
+type MultiSelectProps<T> = ComponentProps<typeof Select<T, boolean>>
 
-export default function MultiSelect(props: MultiSelectProps) {
-  return <Select {...props} />;
+export default function MultiSelect<T>(props: MultiSelectProps<T>) {
+  return <Select {...props} />
 }
