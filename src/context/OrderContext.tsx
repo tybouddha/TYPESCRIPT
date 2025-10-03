@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useRef, useState } from "react"
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useRef,
+  useState,
+} from "react"
 import { useMenu } from "@/hooks/useMenu"
 import { useBasket } from "@/hooks/useBasket"
 import { findObjectById } from "@/utils/array"
@@ -47,14 +53,18 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined) // p
 
 // 2. Installation du context
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
-  const [isModeAdmin, setIsModeAdmin] = useState(false)
+  const [isModeAdmin, setIsModeAdmin] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(ADMIN_TAB_LABEL.ADD)
+  const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
+    ADMIN_TAB_LABEL.ADD
+  )
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
   const [productSelected, setProductSelected] = useState<Product>(EMPTY_PRODUCT)
   const titleEditRef = useRef<HTMLInputElement>(null)
-  const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
-  const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
+  const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } =
+    useMenu()
+  const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
+    useBasket()
   const {
     categories,
     setCategories,
@@ -115,14 +125,20 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     categoryMenus,
   }
 
-  return <OrderContext.Provider value={orderContextValue}>{children}</OrderContext.Provider>
+  return (
+    <OrderContext.Provider value={orderContextValue}>
+      {children}
+    </OrderContext.Provider>
+  )
 }
 
 // 3. Consommation du context
 export const useOrderContext = () => {
   const orderContextData = useContext(OrderContext)
   if (orderContextData === undefined)
-    throw new Error("useOrderContext() can only be used within OrderContextProvider")
+    throw new Error(
+      "useOrderContext() can only be used within OrderContextProvider"
+    )
 
   return orderContextData
 }
