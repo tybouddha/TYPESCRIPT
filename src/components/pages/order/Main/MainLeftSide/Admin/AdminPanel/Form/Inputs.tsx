@@ -1,22 +1,19 @@
-import React from "react"
-import TextInput from "@/components/reusable-ui/TextInput"
-import SelectInput from "@/components/reusable-ui/SelectInput"
-import styled from "styled-components"
-import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig"
-import { Product } from "@/types/Product"
+import React from "react";
+import TextInput from "@/components/reusable-ui/TextInput";
+import SelectInput from "@/components/reusable-ui/SelectInput";
+import styled from "styled-components";
+import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
+import { Product } from "@/types/Product";
+import { FormEvents } from "@/types/FormEvents";
 
 export type InputsProps = {
-  product: Product
-  // onChange: React.ChangeEventHandler<HTMLInputElement> | React.ChangeEventHandler<HTMLSelectElement>
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
-  onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
-  onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
-}
+  product: Product;
+} & FormEvents;
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
-    const inputTexts = getInputTextsConfig(product)
-    const inputSelects = getSelectInputConfig(product)
+    const inputTexts = getInputTextsConfig(product);
+    const inputSelects = getSelectInputConfig(product);
 
     // affichage
     return (
@@ -69,9 +66,9 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
           />
         ))}
       </InputsStyled>
-    )
+    );
   }
-)
+);
 
 const InputsStyled = styled.div`
   /* border: 1px solid red; */
@@ -84,7 +81,6 @@ const InputsStyled = styled.div`
   grid-row-gap: 8px;
   grid-column-gap: 8px;
 
-
   // ROW 1
   .first-row {
     grid-area: 1/1/2/4;
@@ -95,14 +91,13 @@ const InputsStyled = styled.div`
     .title {
       grid-template-areas: 1/1/2/2;
       /* border: 1px solid blue; */
-
     }
 
-    .image-source{
+    .image-source {
       grid-template-areas: 1/2/-1/-1;
       /* border: 1px solid green; */
       /* overflow: hidden;  */
-      min-width: 0;  // hyper important pour empecher le Select de déborder sur la largeur.
+      min-width: 0; // hyper important pour empecher le Select de déborder sur la largeur.
     }
   }
 
@@ -111,9 +106,8 @@ const InputsStyled = styled.div`
     grid-area: 2/1/-3/-1;
   }
 
-
   // ROW 3
   .price {
     grid-area: 3/1/4/2;
   }
-`
+`;
