@@ -26,4 +26,8 @@ console.log("🔧 Configuration Firebase:", firebaseConfig);
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
+// if (location.hostname === "localhost") {
+//   connectFirestoreEmulator(db, "127.0.0.1", 8080) // Le port par défaut de l'émulateur Firestore est 8080
+// }
+
 console.log("✅ Firebase initialisé avec succès");
