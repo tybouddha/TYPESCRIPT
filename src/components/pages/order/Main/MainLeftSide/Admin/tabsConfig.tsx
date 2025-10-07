@@ -8,6 +8,8 @@ import HintMessage from "./AdminPanel/EditForm/HintMessage"
 import AddForm from "./AdminPanel/AddForm/AddForm"
 import { TabType } from "@/types/Tab"
 import { ADMIN_TAB_LABEL } from "@/constants/tab"
+import CategoryForm from "./AdminPanel/CategoryForm/CategoryForm"
+import { IoPricetag } from "react-icons/io5"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
   {
@@ -22,8 +24,17 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
     Icon: <MdModeEditOutline />,
     Content: hasAlreadyBeenClicked ? <EditForm /> : <HintMessage />,
   },
+  {
+    index: ADMIN_TAB_LABEL.CATEGORY,
+    label: "Créer une catégorie",
+    Icon: <IoPricetag />,
+    Content: <CategoryForm />,
+  },
 ]
 
-export const getTabSelected = (tabs: TabType[], currentTabSelected: ADMIN_TAB_LABEL) => {
+export const getTabSelected = (
+  tabs: TabType[],
+  currentTabSelected: ADMIN_TAB_LABEL
+) => {
   return tabs.find((tab) => tab.index === currentTabSelected)
 }
