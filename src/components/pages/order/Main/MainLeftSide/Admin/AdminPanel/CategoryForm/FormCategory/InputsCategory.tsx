@@ -1,7 +1,14 @@
+import TextInput from "@/components/reusable-ui/TextInput"
 import styled from "styled-components"
 
 export const InputsCategory = () => {
-  return <InputsCategoryStyled>InputsCategory</InputsCategoryStyled>
+  return (
+    <InputsCategoryStyled>
+      <div className="category-name">
+        <TextInput />
+      </div>
+    </InputsCategoryStyled>
+  )
 }
 
 const InputsCategoryStyled = styled.div`
