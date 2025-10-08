@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 // import ImagePreview from "./ImagePreview"
 // import { Inputs, InputsProps } from "@/components"
+import { InputsCategory } from "./InputsCategory"
 
 type FormCategoryProps = {
   onSubmit?: React.FormEventHandler<HTMLFormElement>
@@ -17,13 +18,7 @@ const FormCategory = React.forwardRef<HTMLInputElement, FormCategoryProps>(
     // affichage
     return (
       <FormCategoryStyled onSubmit={onSubmit}>
-        {/* <ImagePreview imageSource={product.imageSource} title={product.title} /> */}
-        <Inputs
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          ref={ref}
-        />
+        <InputsCategory />
         <div className="form-footer">{children}</div>
       </FormCategoryStyled>
     )
