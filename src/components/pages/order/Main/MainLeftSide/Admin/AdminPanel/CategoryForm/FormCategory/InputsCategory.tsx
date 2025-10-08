@@ -96,12 +96,16 @@ const InputsCategoryStyled = styled.div`
 
   .category-name {
     grid-area: 1/1/2/4;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .category-color {
-    grid-area: 2/1/-3/-1;
+    grid-area: 2/1/3/4;
+  }
+
+  .category-icon {
+    grid-area: 3/1/4/4;
   }
 `;
