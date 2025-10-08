@@ -1,13 +1,14 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 // import ImagePreview from "./ImagePreview"
 // import { Inputs, InputsProps } from "@/components"
-import { InputsCategory, InputsCategoryProps } from "./InputsCategory"
+import { InputsCategory, InputsCategoryProps } from "./InputsCategory";
+import ImageCategoryPreview from "./ImageCategoryPreview";
 
 type FormCategoryProps = {
-  onSubmit?: React.FormEventHandler<HTMLFormElement>
-  children: React.ReactNode
-} & InputsCategoryProps
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
+  children: React.ReactNode;
+} & InputsCategoryProps;
 
 const FormCategory = React.forwardRef<HTMLInputElement, FormCategoryProps>(
   ({ category, onSubmit, children, onChange, onFocus, onBlur }, ref) => {
@@ -18,6 +19,7 @@ const FormCategory = React.forwardRef<HTMLInputElement, FormCategoryProps>(
     // affichage
     return (
       <FormCategoryStyled onSubmit={onSubmit}>
+        <ImageCategoryPreview category={category} />
         <InputsCategory
           category={category}
           onChange={onChange}
@@ -27,11 +29,11 @@ const FormCategory = React.forwardRef<HTMLInputElement, FormCategoryProps>(
         />
         <div className="form-footer">{children}</div>
       </FormCategoryStyled>
-    )
+    );
   }
-)
+);
 
-export default FormCategory
+export default FormCategory;
 
 const FormCategoryStyled = styled.form`
   /* border: 2px solid black; */
@@ -51,4 +53,4 @@ const FormCategoryStyled = styled.form`
     position: relative;
     top: 3px;
   }
-`
+`;
