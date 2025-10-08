@@ -7,7 +7,8 @@ import { getInputsCategoryConfig } from "./InputsCategoryConfig";
 import { MultiSelect } from "@/components/reusable-ui/MultiSelect/MultiSelect";
 import { PiPaintBucketFill } from "react-icons/pi";
 import { MultiValue } from "react-select";
-import { theme } from "@/theme/theme";
+import { colorOptions, iconOptions } from "@/constants/categories";
+import { BsFillCameraFill } from "react-icons/bs";
 
 export type InputsCategoryProps = {
   category: Category;
@@ -19,18 +20,8 @@ export const InputsCategory = React.forwardRef<
 >(({ category, onChange, onFocus, onBlur }, ref) => {
   //States
   const inputsCategoryTexts = getInputsCategoryConfig(category);
-  // const inputCategorySelects = getSelectedInputConfig(category);
 
   //Comportements
-
-  const colorOptions = [
-    { id: "orange", label: "Orange", color: theme.colors.primary },
-    { id: "bleu", label: "Bleu", color: theme.colors.blue },
-    { id: "vert", label: "Vert", color: theme.colors.green },
-    { id: "rose", label: "Rose", color: theme.colors.rose },
-    { id: "jaune", label: "Jaune", color: theme.colors.yellow },
-    { id: "rouge", label: "Rouge", color: theme.colors.red },
-  ];
 
   //Comportements
   const onChangeColorMulti = (
@@ -40,6 +31,18 @@ export const InputsCategory = React.forwardRef<
       target: {
         name: "color",
         value: selectedColors,
+      },
+    } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+    onChange && onChange(eventMulti);
+  };
+
+  const onChangeIconMulti = (
+    selectedIcon: MultiValue<(typeof iconOptions)[0]>
+  ) => {
+    const eventMulti = {
+      target: {
+        name: "iconName",
+        value: selectedIcon,
       },
     } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
     onChange && onChange(eventMulti);
@@ -65,6 +68,15 @@ export const InputsCategory = React.forwardRef<
           onChange={onChangeColorMulti}
           customIcon={PiPaintBucketFill}
           placeholder="Sélectionner une couleur"
+        />
+      </div>
+      <div className="category-icon">
+        <MultiSelect
+          menuPlacement="auto"
+          options={iconOptions}
+          onChange={onChangeIconMulti}
+          customIcon={BsFillCameraFill}
+          placeholder="Sélectionner une icône"
         />
       </div>
     </InputsCategoryStyled>
