@@ -5,11 +5,14 @@ import { EMPTY_CATEGORY } from "@/constants/categories";
 import { useParams } from "react-router-dom";
 import FormCategory from "./FormCategory/FormCategory";
 import { useState } from "react";
+import { categoryFormSchemaStrict } from "./FormCategory/categoryNameValidator";
+import { z } from "zod";
 
 export default function CategoryForm() {
   //State
   const { handleAddCategory, newCategory, setNewCategory } = useOrderContext();
   const [valueOnFocus, setValueOnFocus] = useState<string>();
+  const [validationError, setValidationError] = useState<string>("");
 
   const { isSubmitted, displaySuccessMessage } = useSuccessMessage();
 
@@ -21,6 +24,10 @@ export default function CategoryForm() {
   ) => {
     const { name, value } = event.target;
     setNewCategory({ ...newCategory, [name]: value });
+
+    if (validationError) {
+      setValidationError("");
+    }
   };
 
   const handleOnFocus = (
@@ -36,21 +43,33 @@ export default function CategoryForm() {
     const valueOnBlur = event.target.value;
     if (valueOnFocus !== valueOnBlur) {
       console.log("ça a changé !!");
-      displaySuccessMessage();
     }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!username) return;
-    const newCategoryToAdd = {
-      ...newCategory,
-      id: crypto.randomUUID(),
-    };
-    handleAddCategory(newCategoryToAdd, username);
-    setNewCategory(EMPTY_CATEGORY);
 
-    displaySuccessMessage();
+    // Validation avec Zod
+    try {
+      const validatedData = categoryFormSchemaStrict.parse({
+        id: crypto.randomUUID(),
+        label: newCategory.label,
+        color: newCategory.color,
+        iconName: newCategory.iconName,
+      });
+
+      handleAddCategory(validatedData, username);
+      setNewCategory(EMPTY_CATEGORY);
+      setValidationError("");
+      displaySuccessMessage();
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setValidationError(error.issues[0].message);
+        console.error("Erreur de validation:", error.issues[0].message);
+      }
+      return;
+    }
   };
 
   //Affichage
@@ -62,7 +81,15 @@ export default function CategoryForm() {
       onFocus={handleOnFocus}
       onBlur={handleOnBlur}
     >
-      <SubmitButton isSubmitted={isSubmitted} />
+      {validationError && (
+        <div style={{ color: "red", marginBottom: "10px" }}>
+          {validationError}
+        </div>
+      )}
+      <SubmitButton
+        isSubmitted={isSubmitted}
+        label="Créer une nouvelle catégorie"
+      />
     </FormCategory>
   );
 }

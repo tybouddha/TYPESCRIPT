@@ -27,10 +27,15 @@ export const InputsCategory = React.forwardRef<
   const onChangeColorMulti = (
     selectedColors: MultiValue<(typeof colorOptions)[0]>
   ) => {
+    const color =
+      selectedColors && selectedColors.length > 0
+        ? selectedColors[0].color
+        : "";
+
     const eventMulti = {
       target: {
         name: "color",
-        value: selectedColors,
+        value: color,
       },
     } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
     onChange && onChange(eventMulti);
@@ -39,10 +44,13 @@ export const InputsCategory = React.forwardRef<
   const onChangeIconMulti = (
     selectedIcon: MultiValue<(typeof iconOptions)[0]>
   ) => {
+    const iconName =
+      selectedIcon && selectedIcon.length > 0 ? selectedIcon[0].iconName : "";
+
     const eventMulti = {
       target: {
         name: "iconName",
-        value: selectedIcon,
+        value: iconName,
       },
     } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
     onChange && onChange(eventMulti);

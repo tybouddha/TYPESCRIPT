@@ -1,9 +1,13 @@
-import z from "zod"
+import { colorOptions } from "@/constants/categories";
+import { ICON_NAMES } from "@/types/Category";
+import z from "zod";
 
-const categoryIconSchema = z.enum(["burger", "drink", "salad", "dessert"])
+const categoryIconSchema = z.enum(ICON_NAMES);
+
+const validColors = colorOptions.map((option) => option.color);
 
 export const categoryFormSchemaStrict = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   label: z
     .string()
     .min(1, "Veuillez entrer un nom de catégorie")
@@ -13,6 +17,6 @@ export const categoryFormSchemaStrict = z.object({
       /^[\p{L}\s]+$/u,
       "La catégorie ne doit contenir que des lettres, des espaces ou -"
     ),
-  color: z.string,
-  icon: categoryIconSchema.optional(),
-})
+  color: z.enum(validColors),
+  iconName: categoryIconSchema,
+});
